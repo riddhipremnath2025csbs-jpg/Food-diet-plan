@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f8f5">
+  <title>Form & Fuel | Fitness Planner</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/script.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#overview" aria-label="Form and Fuel dashboard home">
+      <span class="brand-mark">F</span>
+      <span>form <span class="brand-light">&amp; fuel</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a class="nav-link active" href="#overview">Overview</a>
+      <a class="nav-link" href="#training">Training</a>
+      <a class="nav-link" href="#nutrition">Nutrition</a>
+      <a class="nav-link" href="#profile">Profile</a>
+    </nav>
+    <div class="today-label"><span class="status-dot"></span><span id="todayText">Today</span></div>
+  </header>
+
+  <main class="page-shell">
+    <section class="welcome-row" id="overview">
+      <div>
+        <p class="eyebrow">YOUR PERSONAL PLANNER</p>
+        <h1>Small steps.<br><span>Stronger days.</span></h1>
+        <p class="welcome-copy">A clear view of your training, nutrition, and daily progress.</p>
+      </div>
+      <div class="date-chip"><span class="date-number" id="dateNumber">01</span><span id="dateMonth">NOVEMBER</span></div>
+    </section>
+
+    <section class="metric-grid" aria-label="Today's dashboard">
+      <article class="metric-card calorie-card">
+        <div class="metric-heading"><span>Calories today</span><span class="metric-icon">01</span></div>
+        <p class="metric-value"><span id="caloriesValue">0</span><span class="metric-unit">kcal</span></p>
+        <div class="progress-track"><span id="calorieProgress" class="progress-fill green-fill"></span></div>
+        <p class="metric-foot"><span id="calorieTarget">Set a profile</span><span>target</span></p>
+      </article>
+      <article class="metric-card">
+        <div class="metric-heading"><span>Current weight</span><span class="metric-icon">02</span></div>
+        <p class="metric-value"><span id="weightValue">--</span><span class="metric-unit">kg</span></p>
+        <p class="metric-foot"><span id="weightNote">Add your profile</span></p>
+      </article>
+      <article class="metric-card">
+        <div class="metric-heading"><span>Body mass index</span><span class="metric-icon">03</span></div>
+        <p class="metric-value"><span id="bmiValue">--</span><span class="metric-unit">BMI</span></p>
+        <p class="metric-foot"><span id="bmiNote">Estimate based on profile</span></p>
+      </article>
+      <article class="metric-card">
+        <div class="metric-heading"><span>Water today</span><span class="metric-icon">04</span></div>
+        <p class="metric-value"><span id="waterValue">0</span><span class="metric-unit">ml</span></p>
+        <div class="progress-track"><span id="waterProgress" class="progress-fill blue-fill"></span></div>
+        <p class="metric-foot"><span id="waterTarget">0 ml logged</span><span>2,000 ml guide</span></p>
+      </article>
+      <article class="metric-card workout-summary">
+        <div class="metric-heading"><span>Workout progress</span><span class="metric-icon">05</span></div>
+        <p class="metric-value"><span id="workoutValue">0 / 0</span></p>
+        <div class="progress-track"><span id="workoutProgress" class="progress-fill orange-fill"></span></div>
+        <p class="metric-foot"><span>weekly sessions completed</span></p>
+      </article>
+    </section>
+
+    <section class="content-grid">
+      <section class="panel profile-panel" id="profile">
+        <div class="section-heading">
+          <div><p class="eyebrow">YOUR BASELINE</p><h2>Profile &amp; estimates</h2></div>
+          <span class="estimate-tag">ESTIMATES</span>
+        </div>
+        <form id="profileForm" class="form-grid" novalidate>
+          <label>Age <span class="input-wrap"><input id="age" name="age" type="number" min="13" max="100" placeholder="Years" required><span>yr</span></span></label>
+          <label>Height <span class="input-wrap"><input id="height" name="height" type="number" min="100" max="250" step="0.1" placeholder="Centimeters" required><span>cm</span></span></label>
+          <label>Weight <span class="input-wrap"><input id="weight" name="weight" type="number" min="25" max="350" step="0.1" placeholder="Kilograms" required><span>kg</span></span></label>
+          <label>Activity level<select id="activity" name="activity"><option value="sedentary">Mostly sitting</option><option value="light">Light activity</option><option value="moderate" selected>Moderate activity</option><option value="active">Very active</option></select></label>
+          <label>Dietary preference<select id="diet" name="diet"><option value="balanced">Balanced</option><option value="vegetarian">Vegetarian</option><option value="vegan">Vegan</option><option value="high-protein">High protein</option></select></label>
+          <label>Fitness goal<select id="goal" name="goal"><option value="maintain">Maintain weight</option><option value="lose">Gradual weight loss</option><option value="gain">Build muscle</option></select></label>
+          <div class="form-actions"><button class="button primary-button" type="submit">Save profile &amp; calculate</button><p class="form-message" id="profileMessage" role="status"></p></div>
+        </form>
+        <div class="estimate-results" aria-live="polite">
+          <div><span>Estimated BMI</span><strong id="resultBmi">--</strong></div>
+          <div><span>Estimated daily calories</span><strong id="resultCalories">--</strong></div>
+          <p>General estimates only. Not medical advice or a substitute for individualized guidance.</p>
+        </div>
+      </section>
+
+      <section class="panel tracker-panel">
+        <div class="section-heading">
+          <div><p class="eyebrow">DAILY CHECK-IN</p><h2>Quick tracking</h2></div>
+        </div>
+        <form id="mealForm" class="track-form" novalidate>
+          <label for="mealName">Meal or food</label>
+          <div class="inline-fields"><input id="mealName" name="name" type="text" maxlength="60" placeholder="e.g. Oatmeal and berries" required><input id="mealCalories" name="calories" type="number" min="1" max="5000" placeholder="kcal" required><button class="button icon-button" type="submit" aria-label="Add meal">Add</button></div>
+          <p class="form-message" id="mealMessage" role="status"></p>
+        </form>
+        <form id="waterForm" class="track-form" novalidate>
+          <label for="waterAmount">Water intake</label>
+          <div class="inline-fields"><input id="waterAmount" name="amount" type="number" min="1" max="5000" value="250" required><span class="field-suffix">ml</span><button class="button outline-button" type="submit">Log water</button></div>
+          <p class="form-message" id="waterMessage" role="status"></p>
+        </form>
+        <form id="weightForm" class="track-form" novalidate>
+          <label for="weightEntry">Update weight</label>
+          <div class="inline-fields"><input id="weightEntry" name="weight" type="number" min="25" max="350" step="0.1" placeholder="Kilograms" required><span class="field-suffix">kg</span><button class="button outline-button" type="submit">Update</button></div>
+          <p class="form-message" id="weightMessage" role="status"></p>
+        </form>
+        <div class="activity-block"><div class="activity-title"><h3>Today's activity</h3><button id="clearDayButton" class="text-button" type="button">Clear daily log</button></div><ul id="activityList" class="activity-list"><li class="empty-state">Your entries will appear here.</li></ul></div>
+      </section>
+    </section>
+
+    <section class="panel training-panel" id="training">
+      <div class="section-heading section-heading-wide">
+        <div><p class="eyebrow">MOVE WITH INTENTION</p><h2>This week's training</h2></div>
+        <p class="section-note">Mark a session complete to update your weekly progress.</p>
+      </div>
+      <div class="workout-grid" id="workoutList"><p class="empty-state">Loading workout plan...</p></div>
+    </section>
+
+    <section class="content-grid lower-grid" id="nutrition">
+      <section class="panel meals-panel">
+        <div class="section-heading section-heading-wide">
+          <div><p class="eyebrow">EAT WELL, SIMPLY</p><h2>Meal ideas</h2></div>
+          <button id="groceryButton" class="button outline-button" type="button">Build grocery list</button>
+        </div>
+        <div id="mealPlan" class="meal-list"><p class="empty-state">Loading meal ideas...</p></div>
+        <div class="grocery-area" id="groceryArea" hidden><div class="activity-title"><h3>Grocery list</h3><button id="closeGroceryButton" class="text-button" type="button">Close</button></div><ul id="groceryList" class="grocery-list"></ul></div>
+      </section>
+      <section class="panel progress-panel">
+        <div class="section-heading"><div><p class="eyebrow">YOUR WEEK AT A GLANCE</p><h2>Progress</h2></div></div>
+        <div class="weekly-chart" id="weeklyChart" aria-label="Daily calorie intake over the last seven days"></div>
+        <div class="chart-legend"><span class="legend-swatch"></span>Calories logged</div>
+        <div class="progress-stat"><span>Workout sessions</span><strong id="progressWorkoutCount">0</strong></div>
+        <div class="progress-stat"><span>Meals recorded today</span><strong id="progressMealCount">0</strong></div>
+      </section>
+    </section>
+    <footer class="page-footer"><span>FORM &amp; FUEL</span><span>Personal planning, one day at a time.</span><button id="resetButton" class="text-button" type="button">Reset demo data</button></footer>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
